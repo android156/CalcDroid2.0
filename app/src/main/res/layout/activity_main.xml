@@ -22,11 +22,11 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="352dp"
+        android:layout_width="wrap_content"
         android:layout_height="49dp"
         android:text="@string/CalcOutput"
         android:textAlignment="textEnd"
-        android:textSize="30sp"
+        android:textSize="@dimen/OutputTextSize"
         app:layout_constraintBottom_toTopOf="@+id/button_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,6 +50,7 @@
         android:layout_height="wrap_content"
         android:text="@string/_1"
         android:textSize="@dimen/ButtonTextSize"
+        android:onClick="button_1_onClick"
         app:layout_constraintBottom_toTopOf="@id/button_4"
         app:layout_constraintEnd_toStartOf="@id/button_2"
         app:layout_constraintHorizontal_chainStyle="packed"
