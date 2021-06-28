@@ -1,73 +1,106 @@
 package reminder2020.remind.calcdroid20;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.icu.util.Output;
 import android.os.Bundle;
 import android.view.View; //для онклик
 import android.widget.TextView; //для онклик
 import java.util.Locale;
 import android.widget.Button; // для лиссенера - способ 2
+import android.os.Parcel;
+import android.os.Parcelable;
+
 
 public class MainActivity extends AppCompatActivity implements
         View.OnClickListener {
+//    public MainActivity(String output) {
+//        this.output = output;
+//    }
 
+    private String output;
+//    private final static String SavedOutput = "Output";
     private TextView CalcOutput;
+//    protected MainActivity (Parcel in){
+//        this.output = in.readString();
+//    }
     private Counters counters;
-//    private int counter1;
-//    private int counter2;
-//    private int counter3;
 
+//    @Override
+//    public int describeContents() {
+//        return 0;
+//    }
+//    @Override
+//    public void writeToParcel(Parcel dest, int flags) {
+//        dest.writeString(this.output);
+//    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        // Получить пользовательский элемент по идентификатору
-//        CalcOutput = findViewById(R.id.textView);
-//        Button button2 = findViewById(R.id.button_2); //способ 2
-//        button2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                counter2++;
-//                CalcOutput.setText(String.format(Locale.getDefault(), "Нажата кнопка %s", 2)); //counter2 убрал, руками вписал 2
-//            }
-//        });
+
         counters = new Counters();
         initView();
     }
+
+//    // Сохранение данных
+//    @Override
+//    public void onSaveInstanceState(@NonNull Bundle instanceState) {
+//        super.onSaveInstanceState(instanceState);
+//        instanceState.putParcelable(SavedOutput, this);
+//    }
+//
+//    @Override
+//    protected void onRestoreInstanceState(@NonNull Bundle instanceState) {
+//        super.onRestoreInstanceState(instanceState);
+//        output = instanceState.getParcelable(SavedOutput);
+//        setTextCounters();
+//    }
+//
+//    // Отображение данных на экране
+//    private void setTextCounters(){
+//        setTextCounter(CalcOutput, counters.getCounter1());
+//
+//    }
 
     private void initView() {
 // Получить пользовательские элементы по идентификатору
         CalcOutput = findViewById(R.id.textView);
 
-        initButton3ClickListener();
-        initButton2ClickListener();
+//        initButton3ClickListener();
+//        initButton2ClickListener();
         initButton4ClickListener();
 
     }
 
-    private void initButton3ClickListener() {
-        Button button3 = findViewById(R.id.button_3);
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //counters.incrementCounter3();
-                setTextCounter(CalcOutput, counters.getCounter3());
-            }
-        });
-
-    }
-    private void initButton2ClickListener() {
-        Button button2 = findViewById(R.id.button_2);
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //counters.incrementCounter2();
-                setTextCounter(CalcOutput, counters.getCounter2());
-            }
-        });
-
-    }
+//    private void initButton3ClickListener() {
+//        Button button3 = findViewById(R.id.button_3);
+//        button3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //counters.incrementCounter3();
+//                setTextCounter(CalcOutput, counters.getCounter3());
+//            }
+//        });
+//
+//    }
+//    private void initButton2ClickListener() {
+//        Button button2 = findViewById(R.id.button_2);
+//        button2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //counters.incrementCounter2();
+//                setTextCounter(CalcOutput, counters.getCounter2());
+//            }
+//        });
+//
+//    }
 
     private void initButton4ClickListener(){
+        Button button1 = findViewById(R.id.button_1);
+        Button button2 = findViewById(R.id.button_2);
+        Button button3 = findViewById(R.id.button_3);
         Button button4 = findViewById(R.id.button_4);
         Button button5 = findViewById(R.id.button_5);
         Button button6 = findViewById(R.id.button_6);
@@ -80,6 +113,9 @@ public class MainActivity extends AppCompatActivity implements
         Button button_mult = findViewById(R.id.button_mult);
         Button button_div = findViewById(R.id.button_div);
         Button button_sub = findViewById(R.id.button_sub);
+        button1.setOnClickListener(this);
+        button2.setOnClickListener(this);
+        button3.setOnClickListener(this);
         button4.setOnClickListener(this);
         button5.setOnClickListener(this);
         button6.setOnClickListener(this);
@@ -94,20 +130,30 @@ public class MainActivity extends AppCompatActivity implements
         button_div.setOnClickListener(this);
     }
     // Установить текст на TextView
-    private void setTextCounter(TextView textCounter, int counter){
-        textCounter.setText(String.format(Locale.getDefault(), "%d", counter));
+    private void setTextCounter(TextView textCounter, char counter){
+        output = String.format(Locale.getDefault(), "%s%c", textCounter.getText(), counter);
+        textCounter.setText(output);
     }
 
-    // Обработка кнопки через атрибут onClick в макете
-    public void button_1_onClick(View view) {
-        //counters.incrementCounter1();
-        setTextCounter(CalcOutput, counters.getCounter1());
-    }
+//    // Обработка кнопки через атрибут onClick в макете
+//    public void button_1_onClick(View view) {
+//        //counters.incrementCounter1();
+//        setTextCounter(CalcOutput, counters.getCounter1());
+//    }
     @Override
     public void onClick(View v) {
 // Если на экране один пользовательский элемент, то такая обработка имеет смысл,
 // но если на экране несколько элементов, здесь придется создавать "лишние" условия.
         switch (v.getId()) {
+            case R.id.button_1:
+                setTextCounter(CalcOutput, counters.getCounter1());
+                break;
+            case R.id.button_2:
+                setTextCounter(CalcOutput, counters.getCounter2());
+                break;
+            case R.id.button_3:
+                setTextCounter(CalcOutput, counters.getCounter3());
+                break;
             case R.id.button_4:
                 setTextCounter(CalcOutput, counters.getCounter4());
                 break;
@@ -147,5 +193,6 @@ public class MainActivity extends AppCompatActivity implements
         }
 
     }
+
 
 }

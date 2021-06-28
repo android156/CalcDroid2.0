@@ -17,8 +17,6 @@
     <string name="_sub">-</string>
     <string name="_add">+</string>
     <string name="_equal">=</string>
-    <string name="CalcOutput">0</string>
+    <string name="CalcOutput"></string>
     <string name="PictureDescription">Logo</string>
-
-
 </resources>
